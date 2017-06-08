@@ -1,0 +1,134 @@
+body {
+  font-family: 'arial', sans-serif;
+}
+
+.msg-container {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 95%;
+    min-width: 64em;
+    height: 100%;
+    background-color: lightgrey;
+    margin: auto;
+    margin-top: 2px;
+    border: 1px solid #b2b2b2;
+    outline: none;
+}
+.container {
+    width: 95%;
+    padding: 3px 0px;
+    margin: auto;
+    margin-top: 2px;
+    border: 1px solid #b2b2b2;
+    outline: none;
+}
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    visibility: hidden;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 70%;
+    height: 70%;
+    min-width: 700px;
+    min-height: 400px;
+    overflow: hidden;
+    margin: 10% 10% 10% 10%;
+    border: 1px solid red;
+    background: lightgrey;
+    font-size: 24px;
+}
+.mItem {
+    margin: 10% 10% 10% 10%;
+    border: 1px solid red;
+    background: grey;
+}
+
+/* The Close Button */
+.close {
+  display: block;
+    color: green;
+    float: right;
+    font-size: 36px;
+    font-weight: bold;
+    user-select: none;
+    outline: none;
+}
+.close:hover,.close:focus, .close:active {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+textarea {
+  padding: 0.5em;
+  overflow: hidden;
+  resize: none;
+  font-size: 0.7em;
+  background-color: #f0f5f5;
+  outline: none;
+  font-family: 'arial', sans-serif;
+}
+#mySpan {
+  font-size: 16px;
+  width: 500px;
+  display: inline-block;
+  padding-left: 16px;
+  text-align: center;
+}
+/*input {
+  padding: 8px;
+  font-size: 30px;
+}*/
+input[type="file"] {
+    display: none;
+}
+.buttyG, #click {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 4px 12px;
+    cursor: pointer;
+    font-size: 20px;
+    background: white;
+    border-radius: 10px;
+    margin-left: 3px;
+    user-select: none;
+    outline: none;
+}
+.buttyG:hover,.buttyG:focus, .buttyG:active {
+    background-color: lightgrey;
+    text-decoration: none;
+    cursor: pointer;
+}
+.icon{
+  width: 16px;
+  height: 16px;
+  }
+
+#myNr {
+  padding-right: 3px;
+  flex-basis: 2.4em;
+  min-width: 2.4em;
+  text-align: right;
+  color: #b2b2b2;
+}
+#myMessage {
+  flex-basis: 30em;
+  min-width: 30em;
+}
+#myDescription {
+  flex-basis: 90%;
+  min-width: 30em;
+  font-style: italic;
+}
+#myHex {
+  padding-right: 2px;
+  padding-left: 2px;
+  flex-basis: 24em;
+  min-width: 24em;
+  color: #b2b2b2;
+}
