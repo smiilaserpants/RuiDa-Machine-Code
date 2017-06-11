@@ -2,7 +2,8 @@ Array.prototype.extend = function (other_array) {
   other_array.forEach(function(v) {this.push(v)}, this);
 }
 
-var mySpan = document.getElementById('mySpan');
+var myLSpan = document.getElementById('myLeftSpan');
+var myRSpan = document.getElementById('myRightSpan');
 var myMessageArea = document.getElementById('myMessage');
 var myNrArea = document.getElementById('myNr');
 var myHexArea = document.getElementById('myHex');
@@ -19,10 +20,8 @@ var openFile = function(event) {
   var myFile = input.files[0];
   var reader = new FileReader();
   var msg;
-
+  //console.log('Load file: ' + myFile.name);
   reader.onload = function(){
-    mySpan.innerHTML = "working..."; // This isn't diplayed??
-    //console.log('Load');
     if (input.files && myFile) {
       var uint8Array  = new Uint8Array(reader.result);
       console.log('Bytes: '  + reader.result.byteLength);
@@ -32,33 +31,64 @@ var openFile = function(event) {
       myDescArea.value = msg[2];
       myHexArea.value = msg[3];
       autoresize(myNrArea, myMessageArea, myDescArea, myHexArea);
-      mySpan.innerHTML = "Done.";
+      setLeftSpan(2, myFile.name);
+      setRightSpan();
     };
   };
   reader.readAsArrayBuffer(myFile);
 };
 
+window.onload = setLeftSpan(1, null);
+function setLeftSpan(tag, text) {
+  switch (tag) {
+    case 1:
+      myLSpan.style.color = "blue";
+      myLSpan.innerHTML = "&larr; Please open a rd-file.";
+      break;
+    case 2:
+      myLSpan.style.color = "grey";
+      myLSpan.innerHTML = "&nbsp; &nbsp; Current file: " + text;
+      break;
+    default:
+      myLSpan.innerHTML = "&larr; &rarr;";
+  }
+}
+function setRightSpan() {
+  setRightSpan.notFirstTime = setRightSpan.notFirstTime || false;
+
+  if (setRightSpan.notFirstTime) {
+    myRSpan.innerHTML = "";
+  }
+  else if (myLSpan.textContent.includes("Current")) {
+    setRightSpan.notFirstTime = true;
+    myRSpan.style.textAlign = "right";
+    myRSpan.style.color = "blue";
+    myRSpan.innerHTML = "Learn about the brackets &rarr;";
+  }
+}
 function info() {
   myInfo.style.visibility = "visible";
 }
 function infoClear() {
   myInfo.style.visibility = "hidden";
+  setRightSpan();
 }
 function download() {
 //  myDownload.href = "data:text/plain;charset=utf-8," + prepareForSave(myMessageArea.value);
-  saveByteArray([prepareForSave(myMessageArea.value)], "test.rd");
+//  saveByteArray([prepareForSave(myMessageArea.value)], "test.rd");
   //myDownload.href = "data:text/plain;charset=utf-8," + encodeURIComponent(myHexArea.value); // here line brakes will be included
 //  myDownload.href = "data:application/octet-stream;base64," + myHexArea.value ;
 
-//  myModal.style.visibility = 'visible';
+  myModal.style.visibility = 'visible';
 //  myDownload.style.visibility = "visible";
 }
 function downloadReady() {
-  myDownload.style.visibility = "visible";
+  //myDownload.style.visibility = "visible";
+  //myModal.style.visibility = 'visible';
+  saveByteArray([prepareForSave(myMessageArea.value)], myDownload.download);
 }
 function clear() {
   myModal.style.visibility = 'hidden';
-  myDownload.style.visibility = "hidden";
   fileName.value = "";
 }
 // When the user clicks on <span> (x), close the modal
@@ -76,9 +106,6 @@ fileName.onchange = function() {
 function saveByteArray(data, name) {
   var blob = new Blob(data, {type: 'octet-stream'}),
       url = URL.createObjectURL(blob);
-  console.log("blob size: " + blob.size);
-  console.log("blob type: " + blob.type);
-  console.log("blob url: " + url);
   myDownload.href = url;
   myDownload.download = name;
   myDownload.click();
@@ -427,3 +454,4 @@ function shifty(message) {
 
   return value;
 }
+
