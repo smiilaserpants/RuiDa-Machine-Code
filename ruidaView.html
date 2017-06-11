@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Unofficial RDWorks decoder.</title>
+    <title>Unofficial decoder of RDWorks generated machine code.</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description=" content="Unofficial machine code viewer for
@@ -10,66 +10,74 @@
   </head>
 
   <body>
-    <div class="container">
-      <label class="buttyG">
-          <input type='file' onchange='openFile(event)'/>
-          <!-- Open icon by Icons8 -->
-          <img class="icon"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAACeUlEQVRoQ+2a4VncMAyGXyYAJihMQJmAMgEwATBBYYLCBC0TtExAO0HLBLQTABMAE9Dnuyfyc7nIIQnB6A78886J9Vr6JNl3SyzIWFoQDt5Bonly1iNfgV1grYOhN8Ap8KPD3BefMg3yDfg8YMVN4O+A50Z9ZBrkDlgBuhp2AnwB5Jn1Ua0a8LJpkMfq+T4JQJ7YqMLrcMD6oz3yXJCPwNVo1rS/SJ6XHqXLxnguiF54AEhfy4WABKKwro0xQArZj3nf1eQ8gWjDsjqeN5Cs998USJ9qX0ovtk7KZE95ZGi1Lw10+hRI32pfGiBlsjYQNY7XwEPVupQ2sst6ycY2EHXBF8Al8KnLW19hjuz6LRvbQKwpdCvpKxjtLWk2nrWB/AG2gD3gZxDDZ81Q77UPHLaBSB+KQbXoSnMRhxpWCX47B6JziTKWRp+2vjRsallyIElEgYVuqfdWkZMDSSICjkpvc8f1dHz4DvzSPUMOROLekYiiXC44cLWsmgMxoXc9v3fcxFGn1bKqB7I6J0KvZVUPZNuqZWChN7KqB3IMqHU/Cyz0Rlb1QM6raikgtfERhzKpNlu2KnvVip0VF91VTaolIEFFHNaapM32PGKGR67olrHSZudA/lVeiegN2WTRowx7nwstfZ5iLyCJHaYmrYkXPkap7yIL3T3w5UIrstDdA18OJLLQ3T7QA6nFXkCNuH2gBzJpiwMCmEnu/a8HEvmywVqTRnnINY1RK7odphrlIdfGT4pMwNFoTbw6opuSDz1+DC3NafVD6zZudqY9Yvm5tIF913OPF7P1QjCKQ3km2pDAdaxw/6AQufD12sh3kF7bVWDywnjkP4mInHIP+DzUAAAAAElFTkSuQmCC">
-          Open
+    <div id="top-container" class="container">
+      <label class="buttyG"> <input type='file' onchange='openFile(event)'/>
+        Open
       </label>
-      <input id="open" type='file' >
-      <div id="mySpan">
-        Please open a rd-file. Modify and then download it if you like.
-      </div>
-
-      <button class="buttyG" type="button" onclick='info();'>
-        <!-- Info icon by Icons8 -->
-          <img class="icon"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAD30lEQVRoQ+2agXHUQAxFlQqACiAVABUAFQAVECoAKgAqIKkAUgFQAaSCJBVAKgAqgHme/R7Z57XX9uruwkQznosn9q6+vqTVan1g9eSemT0yswfp4p7Ly08z47pI11m6X63FwcoRUPSFmR0NKF06NMCOzezrGlBLgQDgbQIghf+Y2fdkaX5lfQ9ILD1OrPF7yz3wyczeLwE0F8htM/vQA3BqZl/SVcqCf+6ZmXHBrARAb8zsd+mAc4Aw2UczAwzWxx24iiebUAq2cNHXiSXGfVlqoFIgsMAECL7M37hOhAAIRkgcCMaCnVGZAoL1P5sZvgwLAGCSbQjsAIIYIuaej7E/BgQQ31JQAgIwpM1tCqkcEIBh7ic5MGNAAIHylykYo1xpyjCAwQvup3iBmQ3JAYHSV8mdGGhXIKSwZ+bExWsLaAgI2Ym42JU75RjyYGCFlJ8FQlz8SCmW1LetwJ5yL/2fBMASQGo+9PHSZwTFWZhIsTCzj0Lwk5pZiAHWiAdC/oYNXKpWXLxLpQxzUXpwv1bQkwxGJoOVJn49ELFRa0LGjwDix21ZERCxwUN3KpYdUUC8vg0rAqIJO3631gdSaa89yVA1vGYKeRDly7GAEBtMuJHW1swU/K6WCQx0CBAf5KTf6ySk4SboAaLcvM8pN2dcFsWnlPsAUTlSM1v5BUwbJuKv9gKr2D4BiBYYKkv+rilRWUs6UtRS3J4BRIHeLi4VkUQDYeE+V/r9O7DK18ISDQQ9G/1h5AZIAW03jBQYSY+0rsXKeNdXkjMGmXo0mhEt5lf/VfqNXBCjGeksiJElSjSQTokiP6MAYy9SU6KB/Er9haZoRBTwtcv4SCAq46+o4AWEVij93dobq0gggxurja1jJf+KApLd6qL3dWo+KNNuNB8A4oP+YaU2aQQj6EnFy252sB3kWSGtDTaLZ7qcPxCt1XxQcz3boENHUDIh++B9bJkqKdFExEjtadlYE5uH2DVu+0wkRzqbKNjA2JNNbA2iYAJMrXiZ6ZWdxz2I4mMFjaC9PIxggV2dkQCCDjy/2U7P1NEbYDgp2pWbeSY4OaPZMHiKXHIYSgajjc8AtCdrt3RyLseJGembmIAJitvsUfgUkH7McA9LZLQoVyMb4UpYHxmMiT76UiC8R5EGG6RmLENCIJfXAqTvWnSGQoqFhc4RW46+OUC0zgCg/7kFk0H/EqHliZHa06dkINaM4q8q5gKRolgPy3lATOo/qqG87rPFe/QH/Ec1vnEOw4w7m+WlQDwgrIn1UHCJABiWYXU2AE24FohXHGvL0qRNWd8/I5b04Zk+h1pigM47/wD31ROdPAPfrQAAAABJRU5ErkJggg==">
-      </button>
-      <button class="buttyG" type="button" onclick='download();'>
-        <!-- File icon by Icons8 -->
-          <img class="icon"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAABwklEQVRoQ+2Z4U3EMAyF320AE8AGwATABDACGzACdxswAiPABMAGMAITwAaHnpRIUXWtmzi5uJUj3Y9UaeLP9nPS3AYraZuVcEAC2TcE/QJwC+Cvxho9QWh/NZi5INK4XKemka4CIxkYF5TGlYJ8A7ioERnJwNYgpwA+asD0BuH6JzVgLIAwLdUwVkDUMJZAVDDWQIphLIIUwVgFyYbpDZKzkfIEcDX2wpJAyDBqby+QnEhwrHjCcJBclyrHe0SiA0VPKD19DuAMwKcwj2hHb41sATxNVaMA6CDHSi3zEeFX3yuAawA34baEO/M9gEcA1Ab7P6GvTnH1BCMijTlNERPqJRj/DuAt9AlIqMkdu7dGCEKDGYHYGCFG4jJ59ryEiOwAUAOp3obPzGuEEVktCK9GmUpplBYZEQqeVYzfFPG+l7q5s7Qh0jBWpyjuQ6kVS+5vqFocyws6HlHU1VM9QVAyU4T7Aj3Mxj7B+EsbK9ZDqF5xr2E/TbdDFd38EWXumdNBjnXW8ogMPVBL7HM9WzrONeIaKc0d4T1PLU8tT61pD7hGhhpplDHZ06r/VshesdELxSCN7Kk/rXTWqr9ioxn/ATtPsDOnVj9tAAAAAElFTkSuQmCC">
-        Download
-      </button>
+      <div id="myLeftSpan"></div>
+      <div id="myRightSpan"></div>
+      <button id="infoButt"class="buttyG" type="button" onclick='info();'>i</button>
+      <button class="buttyG" type="button" onclick='download();'>Download</button>
+    </div>
+    <div id="header-container" class="msg-container">
+      <div class="header nr">Nr</div>
+      <div class="header message">Messages - Type &amp; Data</div>
+      <div class="header description"> Short Description</div>
+      <div class="header hex"> Raw Hex</div>
     </div>
     <div class="msg-container">
-      <textarea id="myNr" readonly> </textarea>
-      <textarea id="myMessage">...</textarea>
-      <textarea id="myDescription" readonly> </textarea>
-      <textarea id="myHex" readonly> </textarea>
+      <textarea id="myNr" class="nr" readonly> </textarea>
+      <textarea id="myMessage" class="message">...</textarea>
+      <textarea id="myDescription" class="description" readonly> </textarea>
+      <textarea id="myHex" class="hex" readonly> </textarea>
     </div>
 
     <!-- The Download Modal -->
     <div id="myDownloadModal" class="modal">
-      <div class="mItem">
-        <span class="close"> &times;</span>
+      <div class="mItem"><span class="close"> &times;</span></div>
+      <div id="warning" class="mItem">
+        <span id="warningSpan">WARNING</span>
+        This is experimental software. <br>
+        It can damage you and your machine.<br>
+        Use at your own risk.
       </div>
-      <div class="mItem">
-        hello
-      </div>
-      <div class="mItem">
-        File name:
-        <input id="fileName" type="text" name="fname" required placeholder="default.rd" onclick='downloadReady()'>
-        <a id="download" style="visibility: hidden;" href=""type="button" href='' download="default.rd" >
-          Download
-        </a>
+      <div id="dlFile" class="mItem">
+        <span>File name:</span>
+        <input id="fileName" type="text" required placeholder="default.rd">
+        <button class="buttyG" type="button" onclick='downloadReady();'>Save</button>
+        <a id="download" href="" type="button" download="default.rd" ></a>
       </div>
     </div>
 
     <!-- The Info Modal -->
     <div id="myInfoModal" class="modal">
-      <div>
+      <div class="mItem">
         <span class="close" onclick="infoClear();"> &times;</span>
       </div>
-      <div>
-        <h1>Und</h1>
-        <p>This id info...</p><br>
-        <p>Ya jahjsaj</p>
+      <div id="info" class="mItem">
+        <h1>Info</h1>
+          The application runs in your browser and not on any server.
+          Hence, you can run if offline if you like. Download the source at
+          <a href="https://github.com/smiilaserpants/RuiDa-Machine-Code"
+          target="_blank">GitHub</a>.<br><br>
+          This editor is a work in progress. Not every message is known,
+          or decoded yet. The Message column is the only part of the viewer
+          that’s editable. The idea is to edit the data between the brackets.
+          Below you will find what each type of bracket holds.
+        <h3>&lt;message&gt;</h3>
+        In between the angled brackets you’ll find the message type in hex.
+        It is 1-2 bytes long.
+        <h3>[value]</h3>
+        In between the regular brackets you’ll find the data value. This data
+        has been formatted to actual numbers.
+        <h3>(raw hex)</h3>
+        If you see an indented line enclosed with parentheses. Then the message
+        isn't yet decoded. The raw message with header and data will be
+        presented with it's hex values in between the parentheses. This data
+        can also be edited. If you want to try something out.
       </div>
     </div>
   </body>
-
   <script src="ruidaModel.js" ></script>
   <script src="ruidaLogic.js" ></script>
-
 </html>

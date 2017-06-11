@@ -67,7 +67,7 @@ valueUnit(String), valueScaleFactor(float), nrOfDecimals(int), description(Strin
   "C6 56" : [0, false, 1, 2, ["Laser 4 T.M. power"], "%", 0.006103888, 1,
     "Through Mode power level."],
   "C6 10" : [0, false, 1, 5, ["Pulse time"], "ms", 0.001, 1,
-    "GUESS! Pulse. Laser beam active for a number of milliseconds."],
+    "Pulse. Laser beam active for a number of milliseconds."],
   "C6 12" : [0, false, 1, 2, ["Open delay with T.M."], "ms", 0.001, 1,
     "This is the delay which the beam will hold still at the start of every cut when Through Mode is active.."],
   "C6 13" : [0, false, 1, 2, ["Close delay with T.M."], "ms", 0.001, 1,

@@ -1,135 +1,201 @@
-.msg-container, .container {
-    font-family: 'arial', sans-serif;
+.container, .msg-container {
     border: 1px solid #b2b2b2;
     outline: none;
     width: 95%;
     min-width: 1344px;
 }
-.msg-container {
+.msg-container{
     display: flex;
     flex-wrap: nowrap;
     height: 100%;
-    min-height: 700px;
+    min-height: 600px;
     margin: auto;
-    margin-top: 2px;
 }
-.container {
-    padding: 3px 0px;
+#top-container {
+    padding: 5px 2px;
     margin: auto;
     margin-top: 2px;
+    border-bottom: 2px solid #b2b2b2;
+}
+#header-container {
+    min-height: 30px;
+    margin: auto;
+    margin-top: 3px;
+    border: none;
+    border-left: 1px solid #b2b2b2;
+    border-right: 1px solid #b2b2b2;
 }
 .modal {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    /*align-items: center;*/
+    align-items: stretch;
     flex-direction: column;
     visibility: hidden;
     position: fixed; /* Stay in place */
     z-index: 10; /* Sit on top */
-    left: 0;
-    top: 0;
+    left: 5%;
+    top: 10%;
     width: 70%;
-    height: 70%;
-    min-width: 700px;
-    min-height: 400px;
+    /*height: 90%;*/
+    min-width: 200px;
+    max-height: 80%;
     overflow: hidden;
-    margin: 10% 10% 10% 10%;
-    border: 1px solid red;
-    background: lightgrey;
-    font-size: 24px;
+    margin: 0 10% 10% 10%;
+    border: 3px solid grey;
+    background: #fafafa;;
+    font-size: 16px;
 }
 .mItem {
-    margin: 10% 10% 10% 10%;
-    border: 1px solid red;
-    background: grey;
+    font-family: 'arial', sans-serif;
+    padding: 10px 24px;
+    /*border: 1px solid red;*/
+    justify-content: center;
 }
+#info{
+  padding: 0px 16px;
+  margin: 0px 16px 32px 16px;
+  font-size: 16px;
+  overflow:auto;
+  }
 
+#warning {
+    font-family: 'arial', sans-serif;
+    font-size: 20px;
+    color: white;
+    margin: 0 10%;
+    border: 5px solid black;
+    background-color: #555;
+    text-align: center;
+    padding: 5%;
+}
+#warningSpan {
+  display: block;
+  font-size:36px;
+  font-weight: bold;
+  color:yellow;
+  padding-bottom: 3%;
+}
+#dlFile {
+  margin: auto;
+  padding: 30px 40px;
+  font-size:16px;
+  /*display: block;*/
+}
+#fileName {
+  padding: 8px 3px 5px 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+#download {
+  visibility: hidden;
+}
 /* The Close Button */
 .close {
   display: block;
-    color: green;
+    color: black;
     float: right;
     font-size: 36px;
     font-weight: bold;
     user-select: none;
     outline: none;
+    text-align: right;
+    padding-right: 10px;
 }
 .close:hover,.close:focus, .close:active {
-    color: white;
+    color: grey;
     text-decoration: none;
     cursor: pointer;
 }
 
 textarea {
-  padding: 0.5em;
+  padding: 8px;
   overflow: hidden;
   resize: none;
-  font-size: 0.7em;
+  font-size: 11px;
   background-color: #fcfcfc;
   outline: none;
   font-family: 'arial', sans-serif;
-  border-radius: 0px;
+  border-radius: none;
 }
-#mySpan {
+#myLeftSpan, #myRightSpan {
+  font-family: 'arial', sans-serif;
+  color: grey;
   font-size: 16px;
-  width: 500px;
+  width: 320px;
   display: inline-block;
-  padding-left: 16px;
-  text-align: center;
+  padding-left: 3px;
+  text-align: left;
 }
 
 input[type="file"] {
-    display: none;
+  display: none;
 }
-.buttyG, #click {
-    font-family: 'arial', sans-serif;
-    color: black;
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 4px 12px;
-    cursor: pointer;
-    font-size: 20px;
-    background: white;
-    border-radius: 10px;
-    margin-left: 3px;
-    user-select: none;
-    outline: none;
+input[type="text"] {
+  display: inline-block;
+  width: auto;
+}
+.buttyG{
+  font-family: 'arial', sans-serif;
+  font-weight: 100;
+  color: black;
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 4px 12px;
+  cursor: pointer;
+  font-size: 20px;
+  background: white;
+  border-radius: 10px;
+  margin-left: 3px;
+  user-select: none;
+  outline: none;
 }
 .buttyG:hover,.buttyG:focus, .buttyG:active {
-    background-color: lightgrey;
-    text-decoration: none;
-    cursor: pointer;
+  background-color: lightgrey;
+  text-decoration: none;
+  cursor: pointer;
 }
-.icon{
-  width: 16px;
-  height: 16px;
+#infoButt{
+  border-radius: 16px;
+  color: blue;
   }
-
-#myNr {
+.header {
+  font-family: 'arial', sans-serif;
+  font-size: 14px;
+  padding-top: 10px;
+  text-align: center;
+  color: #b2b2b2;
+  font-style: italic;
+  user-select: none;
+  outline: none;
+  border: none;
+  display: inline-block;
+  }
+.nr {
   padding-right: 3px;
-  flex-basis: 2.4em;
-  min-width: 2.4em;
+  flex-basis: 30px;
+  min-width: 30px;
   text-align: right;
   color: #b2b2b2;
   user-select: none;
   outline: none;
 }
-#myMessage {
-  flex-basis: 30em;
-  min-width: 30em;
+.message {
+  flex-basis: 320px;
+  min-width: 320px;
 }
-#myDescription {
+.description {
   flex-basis: 90%;
-  min-width: 30em;
+  min-width: 600px;
   font-style: italic;
   user-select: none;
   outline: none;
 }
-#myHex {
+.hex {
   padding-right: 2px;
   padding-left: 2px;
-  flex-basis: 24em;
-  min-width: 24em;
+  flex-basis: 280px;
+  min-width: 280px;
   color: #b2b2b2;
   outline: none;
 }
